@@ -1,0 +1,11 @@
+# macOS system files
+.DS_Store
+**/.DS_Store
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+
+# Editor noise
+*.swp
+*~
