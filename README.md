@@ -17,7 +17,7 @@ That's it. The easiest way to use the tools is the two guided commands — type 
 | Command | What it does |
 |---|---|
 | `/modes-map` | Guided side-by-side mapping table between two Figma variable modes. Asks for the file, the two modes, and where to draw the table; shows you a numbered list to approve before drawing anything. |
-| `/brand-upload` | Guided update of your UI-kit variables from brand guidelines. Asks for your brand material and the file; shows you a numbered before → after list to approve before writing anything. |
+| `/brand-upload` | Guided creation of a "Brand Foundations" variable collection from brand guidelines. Asks for your brand material and the file; shows you a numbered checklist to approve; then creates a new collection, leaving existing variables untouched. |
 
 Nothing is ever written to Figma until you approve the list. You can also just describe what you want in plain language if you prefer — see the [plugin README](./plugins/design-system-agents/README.md) for examples.
 
@@ -35,7 +35,7 @@ The tools talk to Figma through the Figma MCP server. You need it connected and 
 
 | Plugin | Commands | Skills | Purpose |
 |---|---|---|---|
-| `design-system-agents` | `/modes-map`, `/brand-upload` | `brand-token-update`, `token-mode-mapping` | Update UI-kit variables from brand guidelines; map two variable modes into a comparison table. |
+| `design-system-agents` | `/modes-map`, `/brand-upload` | `brand-token-update`, `token-mode-mapping` | Create a Brand Foundations variable collection from brand guidelines; map two variable modes into a comparison table. |
 
 ## For the maintainer — repo layout
 

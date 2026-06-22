@@ -1,6 +1,6 @@
 {
   "name": "design-system-agents",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Figma design-system automation: update UI-kit variables from brand guidelines, and generate a comparison table between two variable modes. Skills drive the Figma MCP server directly.",
   "author": {
     "name": "kirillkeywork"
