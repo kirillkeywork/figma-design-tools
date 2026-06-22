@@ -88,3 +88,11 @@ Building the table is a side-effecting write. **Do not draw it until the user ha
 - **Alias dead-ends**: if a chain cannot resolve, show the last known alias name and mark the value unresolved rather than inventing a hex.
 - **Mode missing in a referenced collection**: fall back to the first mode and note it.
 - **Truncated read**: detect an incomplete set and re-fetch in batches before drawing the table.
+
+## What's next
+
+After the flow completes and you've confirmed the result, show a brief "What's next" list so the user discovers the plugin's other tools. List the *other* commands (omit the one just used), one line each:
+
+- **`/modes-map`** — side-by-side mapping table between two variable modes.
+- **`/brand-upload`** — create a "Brand Foundations" variable collection from brand guidelines.
+- **`/component-updates`** — document component changes for developer handoff.

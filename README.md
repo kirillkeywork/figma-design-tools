@@ -18,6 +18,7 @@ That's it. The easiest way to use the tools is the two guided commands — type 
 |---|---|
 | `/modes-map` | Guided side-by-side mapping table between two Figma variable modes. Asks for the file, the two modes, and where to draw the table; shows you a numbered list to approve before drawing anything. |
 | `/brand-upload` | Guided creation of a "Brand Foundations" variable collection from brand guidelines. Asks for your brand material and the file; shows you a numbered checklist to approve; then creates a new collection, leaving existing variables untouched. |
+| `/component-updates` | Guided developer-handoff doc comparing a library component to a modified version. Classifies styling-only changes vs. an anatomy rebuild; shows a numbered checklist to approve; then creates a documentation section in Figma with code syntax for changed variable-bound values. |
 
 Nothing is ever written to Figma until you approve the list. You can also just describe what you want in plain language if you prefer — see the [plugin README](./plugins/design-system-agents/README.md) for examples.
 
@@ -35,7 +36,7 @@ The tools talk to Figma through the Figma MCP server. You need it connected and 
 
 | Plugin | Commands | Skills | Purpose |
 |---|---|---|---|
-| `design-system-agents` | `/modes-map`, `/brand-upload` | `brand-token-update`, `token-mode-mapping` | Create a Brand Foundations variable collection from brand guidelines; map two variable modes into a comparison table. |
+| `design-system-agents` | `/modes-map`, `/brand-upload`, `/component-updates` | `brand-token-update`, `token-mode-mapping`, `component-updates` | Map two variable modes into a comparison table; create a Brand Foundations collection from brand guidelines; document component changes for developer handoff. |
 
 ## For the maintainer — repo layout
 
@@ -51,9 +52,11 @@ figma-design-tools/
         ├── .mcp.json              # Figma MCP connection definition
         ├── commands/              # slash commands (the guided entry points)
         │   ├── modes-map.md       # /modes-map
-        │   └── brand-upload.md    # /brand-upload
+        │   ├── brand-upload.md    # /brand-upload
+        │   └── component-updates.md  # /component-updates
         ├── skills/
         │   ├── brand-token-update/SKILL.md
+        │   ├── component-updates/SKILL.md
         │   └── token-mode-mapping/SKILL.md
         └── README.md
 ```

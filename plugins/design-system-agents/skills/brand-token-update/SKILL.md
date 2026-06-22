@@ -78,3 +78,11 @@ After creating, confirm what was made ("Created 'Brand Foundations' with 4 varia
 - **A collection with that name already exists**: do not merge into it silently. Tell the user and ask whether to pick a different name (e.g. "Brand Foundations 2") or add to the existing one — let them decide.
 - **Ambiguous brand value** (e.g. a color given with no clear role): ask the user what to name it rather than guessing.
 - **Brand material is vague or has no explicit values**: say so and ask for concrete values, rather than inventing any.
+
+## What's next
+
+After the flow completes and you've confirmed the result, show a brief "What's next" list so the user discovers the plugin's other tools. List the *other* commands (omit the one just used), one line each:
+
+- **`/modes-map`** — side-by-side mapping table between two variable modes.
+- **`/brand-upload`** — create a "Brand Foundations" variable collection from brand guidelines.
+- **`/component-updates`** — document component changes for developer handoff.

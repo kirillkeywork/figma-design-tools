@@ -17,5 +17,6 @@ Follow the skill at `skills/brand-token-update/SKILL.md`, and run it in this exa
 5. **Extract the brand elements** from the material (colors, typography, spacing, other) — only explicit values, never invented ones.
 6. **Approval gate** — present every proposed element as a numbered list with `[x]` markers (all selected by default), grouped by category. State plainly that it will create N variables in a new collection and that no existing variables will be touched. Ask them to reply `all` or to name the lines to exclude. **Do not create anything until they reply.**
 7. **Create the new collection** with only the approved elements (convert hex → RGBA 0–1 for colors), leaving all existing collections and variables unchanged. Then confirm what was made and give them a link to the file.
+8. **What's next** — after confirming the result, show the shared "What's next" footer from `commands/_whats-next.md` (omitting `/brand-upload` since it was just run) so the user discovers the other tools.
 
 If the person already passed details as arguments ($ARGUMENTS), use those to skip the matching questions, but still run the preflight and the approval gate.

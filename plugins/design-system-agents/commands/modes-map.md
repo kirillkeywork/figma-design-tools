@@ -15,5 +15,6 @@ Follow the skill at `skills/token-mode-mapping/SKILL.md`, and run it in this exa
 5. **Read and resolve** all tokens across both modes (full alias resolution, compact serialization to avoid truncation). Report the token count so they can sanity-check it.
 6. **Approval gate** — present the full token list as a numbered table with `[x]` markers (all selected by default) and ask them to reply `all` to push everything, or to name the lines to exclude. **Do not draw the table in Figma until they reply.**
 7. **Build the table** on the page they specified, including only the approved tokens, then give them a direct link to the created frame.
+8. **What's next** — after confirming the result, show the shared "What's next" footer from `commands/_whats-next.md` (omitting `/modes-map` since it was just run) so the user discovers the other tools.
 
 If the person already passed details as arguments ($ARGUMENTS), use those to skip the matching questions, but still run the preflight and the approval gate.
