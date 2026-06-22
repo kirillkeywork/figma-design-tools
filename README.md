@@ -12,7 +12,14 @@ A Claude plugin marketplace for Figma design-system automation. Subscribe once, 
 /plugin install design-system-agents@figma-design-tools
 ```
 
-That's it. Then just describe what you want — see the [plugin README](./plugins/design-system-agents/README.md) for examples.
+That's it. The easiest way to use the tools is the two guided commands — type one and Claude walks you through the rest, one question at a time:
+
+| Command | What it does |
+|---|---|
+| `/modes-map` | Guided side-by-side mapping table between two Figma variable modes. Asks for the file, the two modes, and where to draw the table; shows you a numbered list to approve before drawing anything. |
+| `/brand-upload` | Guided update of your UI-kit variables from brand guidelines. Asks for your brand material and the file; shows you a numbered before → after list to approve before writing anything. |
+
+Nothing is ever written to Figma until you approve the list. You can also just describe what you want in plain language if you prefer — see the [plugin README](./plugins/design-system-agents/README.md) for examples.
 
 To get later updates:
 
@@ -26,9 +33,9 @@ The tools talk to Figma through the Figma MCP server. You need it connected and 
 
 ## What's in the marketplace
 
-| Plugin | Skills | Purpose |
-|---|---|---|
-| `design-system-agents` | `brand-token-update`, `token-mode-mapping` | Update UI-kit variables from brand guidelines; map two variable modes into a comparison table. |
+| Plugin | Commands | Skills | Purpose |
+|---|---|---|---|
+| `design-system-agents` | `/modes-map`, `/brand-upload` | `brand-token-update`, `token-mode-mapping` | Update UI-kit variables from brand guidelines; map two variable modes into a comparison table. |
 
 ## For the maintainer — repo layout
 
@@ -36,11 +43,15 @@ The tools talk to Figma through the Figma MCP server. You need it connected and 
 figma-design-tools/
 ├── .claude-plugin/
 │   └── marketplace.json          # the catalog teammates subscribe to
+├── .gitignore
 └── plugins/
     └── design-system-agents/
         ├── .claude-plugin/
         │   └── plugin.json        # plugin manifest + version
         ├── .mcp.json              # Figma MCP connection definition
+        ├── commands/              # slash commands (the guided entry points)
+        │   ├── modes-map.md       # /modes-map
+        │   └── brand-upload.md    # /brand-upload
         ├── skills/
         │   ├── brand-token-update/SKILL.md
         │   └── token-mode-mapping/SKILL.md
@@ -57,3 +68,5 @@ Adding a new tool is intentionally small:
 4. Teammates run `/plugin marketplace update figma-design-tools` to get it.
 
 If you'd rather ship a feature as a *separate* plugin instead of a new skill, add another folder under `plugins/` and a second entry in `marketplace.json`.
+
+To give a skill a guided slash-command entry point, add a matching file under `plugins/design-system-agents/commands/` — the filename becomes the command (e.g. `commands/my-tool.md` → `/my-tool`).
