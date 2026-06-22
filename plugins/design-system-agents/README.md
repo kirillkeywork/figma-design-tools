@@ -19,7 +19,7 @@ Just talk to Claude. Examples:
 
 - "Apply our new brand guidelines to the UI kit — here's the brand PDF and the Figma link."
 - "Update the colors in this Figma file to match these hex values: …"
-- "Compare the Default and Bonnell modes in our color collection and build a mapping table in Figma."
+- "Compare the Default and [Name] modes in our color collection and build a mapping table in Figma."
 - "Map our two variable modes side by side so I can document the differences."
 
 The skill will confirm the Figma connection, gather what it needs (file link, brand material or the two mode names), show you what it plans to change, and only write to Figma after you approve.
