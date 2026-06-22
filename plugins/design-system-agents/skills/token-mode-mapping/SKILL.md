@@ -91,8 +91,8 @@ Building the table is a side-effecting write. **Do not draw it until the user ha
 
 ## What's next
 
-After the flow completes and you've confirmed the result, show a brief "What's next" list so the user discovers the plugin's other tools. List the *other* commands (omit the one just used), one line each:
+After the flow completes and you've confirmed the result, show a brief "What's next" list. Show all three commands — the two others, plus the command just completed marked "(run again)" so the user can repeat the current flow. One line each:
 
-- **`/modes-map`** — side-by-side mapping table between two variable modes.
+- **`/modes-map`** (run again) — side-by-side mapping table between two variable modes.
 - **`/brand-upload`** — create a "Brand Foundations" variable collection from brand guidelines.
 - **`/component-updates`** — document component changes for developer handoff.

@@ -89,14 +89,19 @@ Then ask: **"Reply `all` to document everything, or tell me which line numbers t
 
 ## Creating the documentation in Figma
 
-After approval, create a native auto-layout documentation section on the destination (default a frame titled "Component Updates"). Include:
+After approval, create a native auto-layout documentation section on the destination (default a frame titled "Component Updates"). Include, in order:
 
 - A **header** with the component name and the mode verdict — for rebuilt components, lead with a clear callout: "This is a different custom component, not a modified version of <original>." with the anatomical reasons.
+- A **visual examples row** near the top, showing the actual components side by side so the developer sees what is being compared:
+  - Place a **copy/instance of each component node** in the doc — original on the left, modified on the right — each clearly labeled ("Original" / "Modified").
+  - Prefer placing an **instance** of the source component where possible; if an instance cannot be created (e.g. the original lives in a different file and isn't reachable as a library instance), place a flat copy of the node instead. If even that fails, fall back to a rendered image/thumbnail of the node, and note in the doc that it is a static preview.
+  - In **spec-only** mode (no original given) show just the single component, labeled.
+  - In **rebuilt** mode still show both side by side, since seeing the two makes the "different component" verdict obvious.
 - The approved changes (or spec) grouped by category, each row showing original → new where applicable.
 - For any changed value bound to a variable with code syntax, show the **variable name and its code syntax** (only the platforms that exist) so developers get the real token reference.
 - Keep it scannable: a developer should grasp what to implement at a glance.
 
-When the tool is `use_figma` with a `fileKey`, call it directly with a precise description of the section. After creating, give the user a direct link to the documentation frame.
+When the tool is `use_figma` with a `fileKey`, call it directly with a precise description of the section, including the side-by-side example instances. After creating, give the user a direct link to the documentation frame.
 
 ## Failure modes to handle gracefully
 
@@ -107,8 +112,8 @@ When the tool is `use_figma` with a `fileKey`, call it directly with a precise d
 
 ## What's next
 
-After the flow completes and you've confirmed the result, show a brief "What's next" list so the user discovers the plugin's other tools. List the *other* commands (omit the one just used), one line each:
+After the flow completes and you've confirmed the result, show a brief "What's next" list. Show all three commands — the two others, plus the command just completed marked "(run again)" so the user can repeat the current flow. One line each:
 
 - **`/modes-map`** — side-by-side mapping table between two variable modes.
 - **`/brand-upload`** — create a "Brand Foundations" variable collection from brand guidelines.
-- **`/component-updates`** — document component changes for developer handoff.
+- **`/component-updates`** (run again) — document component changes for developer handoff.
