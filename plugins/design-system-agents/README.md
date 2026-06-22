@@ -1,72 +1,33 @@
-# Figma Design Tools
+# Design System Agents
 
-A Claude plugin marketplace for Figma design-system automation. Subscribe once, install the plugin, and use the tools through natural language in Claude Code or Cowork.
+Two Figma design-system tools in one Claude plugin. Once installed, you just describe what you want in plain language inside Claude Code or Cowork — the right skill activates automatically.
 
-## For teammates — install
+## What's inside
 
-```
-# 1. Add this marketplace (one time)
-/plugin marketplace add kirillkeywork/figma-design-tools
+**Brand Token Update** — Update your UI kit's variables to match new brand guidelines. Give it a brand PDF (or pasted values), point it at your Figma file, and it reads your existing variables, maps the brand's explicit values onto them, shows you a before → after diff, and writes the approved changes back. It only changes variables the brand material actually specifies — no invented defaults.
 
-# 2. Install the plugin
-/plugin install design-system-agents@figma-design-tools
-```
+**Token Mode Mapping** — Compare two modes of a variable collection (e.g. Default vs. a brand theme) and generate a native Figma auto-layout table mapping them side by side, with color swatches, resolved aliases, typography samples, and code syntax.
 
-That's it. The easiest way to use the tools is the two guided commands — type one and Claude walks you through the rest, one question at a time:
+## Requirements
 
-| Command | What it does |
-|---|---|
-| `/modes-map` | Guided side-by-side mapping table between two Figma variable modes. Asks for the file, the two modes, and where to draw the table; shows you a numbered list to approve before drawing anything. |
-| `/brand-upload` | Guided update of your UI-kit variables from brand guidelines. Asks for your brand material and the file; shows you a numbered before → after list to approve before writing anything. |
+- Claude Code or Cowork (desktop or terminal).
+- The **Figma MCP** connection, authenticated to an account that can access your files. Each skill checks this connection before doing any work and will walk you through connecting if it isn't ready — run `/mcp` to check the `figma` server status.
 
-Nothing is ever written to Figma until you approve the list. You can also just describe what you want in plain language if you prefer — see the [plugin README](./plugins/design-system-agents/README.md) for examples.
+## Using it
 
-To get later updates:
+The simplest way is the two guided commands — they walk you through everything, one question at a time, and always show you a checklist for approval before changing anything in Figma:
 
-```
-/plugin marketplace update figma-design-tools
-```
+- **`/modes-map`** — guided mode comparison. Asks for the Figma file, which two modes to compare, and where to draw the table; resolves all tokens; shows you a numbered list to approve; then builds the table (with per-token code syntax) and links you to it.
+- **`/brand-upload`** — guided brand update. Asks for your brand material (PDF or values) and the UI-kit file; shows you a numbered before → after list to approve; then writes the approved changes back.
 
-### One prerequisite: Figma
+You can also just talk to Claude in plain language if you prefer — the skills trigger on their own. Examples:
 
-The tools talk to Figma through the Figma MCP server. You need it connected and authenticated to an account that can reach your files. The skills check this automatically and guide you if it's not ready — run `/mcp` to see the `figma` server status.
+- "Apply our new brand guidelines to the UI kit — here's the brand PDF and the Figma link."
+- "Compare the Default and Dark modes in our color collection and build a mapping table in Figma."
 
-## What's in the marketplace
+Either way, nothing is written to Figma until you approve the numbered list.
 
-| Plugin | Commands | Skills | Purpose |
-|---|---|---|---|
-| `design-system-agents` | `/modes-map`, `/brand-upload` | `brand-token-update`, `token-mode-mapping` | Update UI-kit variables from brand guidelines; map two variable modes into a comparison table. |
+## Notes
 
-## For the maintainer — repo layout
-
-```
-figma-design-tools/
-├── .claude-plugin/
-│   └── marketplace.json          # the catalog teammates subscribe to
-├── .gitignore
-└── plugins/
-    └── design-system-agents/
-        ├── .claude-plugin/
-        │   └── plugin.json        # plugin manifest + version
-        ├── .mcp.json              # Figma MCP connection definition
-        ├── commands/              # slash commands (the guided entry points)
-        │   ├── modes-map.md       # /modes-map
-        │   └── brand-upload.md    # /brand-upload
-        ├── skills/
-        │   ├── brand-token-update/SKILL.md
-        │   └── token-mode-mapping/SKILL.md
-        └── README.md
-```
-
-## For the maintainer — adding a feature later
-
-Adding a new tool is intentionally small:
-
-1. Create `plugins/design-system-agents/skills/<new-skill>/SKILL.md`. The `description` field is what makes Claude pick the skill up — describe both what it does and when to use it, and lean slightly "pushy" so it triggers when it should.
-2. Bump `version` in **both** `plugin.json` and the plugin entry in `marketplace.json` (e.g. `0.1.0` → `0.2.0`).
-3. Commit and push.
-4. Teammates run `/plugin marketplace update figma-design-tools` to get it.
-
-If you'd rather ship a feature as a *separate* plugin instead of a new skill, add another folder under `plugins/` and a second entry in `marketplace.json`.
-
-To give a skill a guided slash-command entry point, add a matching file under `plugins/design-system-agents/commands/` — the filename becomes the command (e.g. `commands/my-tool.md` → `/my-tool`).
+- Both skills read variables with `get_variable_defs` and write through the Figma MCP. They never modify your file without showing you the change first and getting approval.
+- For large files, reads are handled in a way that avoids truncation — you'll get the full set, not a partial one.
