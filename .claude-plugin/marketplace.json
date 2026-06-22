@@ -1,0 +1,21 @@
+{
+  "name": "figma-design-tools",
+  "owner": {
+    "name": "kirillkeywork",
+    "email": "kirillkey.work@gmail.com"
+  },
+  "metadata": {
+    "description": "Design-system automation tools for Figma: brand token updates and cross-mode token mapping, driven by Claude through the Figma MCP."
+  },
+  "plugins": [
+    {
+      "name": "design-system-agents",
+      "source": "./plugins/design-system-agents",
+      "description": "Two Figma design-system skills in one plugin: update UI-kit variables from brand guidelines, and generate a side-by-side comparison table between two variable modes.",
+      "version": "0.1.0",
+      "author": {
+        "name": "kirillkeywork"
+      }
+    }
+  ]
+}
