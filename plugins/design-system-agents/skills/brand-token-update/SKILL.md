@@ -19,11 +19,11 @@ This skill depends entirely on the Figma MCP server. Before doing anything else,
 
 ## Inputs to gather
 
-- **Figma file** — the UI kit. Accept a full Figma URL and extract the file key (the segment after `/design/` or `/file/`, e.g. `https://figma.com/design/ABC123/Name` → `ABC123`).
-- **Brand material** — any of: a PDF the user attaches, pasted brand-guideline text, or a short list of values (hex codes, font families, spacing). Read what they give; do not fetch from the web unless they explicitly ask and provide a URL.
-- Optionally, a specific collection name if they only want to touch one collection.
+When launched via the `/brand-upload` command, gather these **one question at a time**, conversationally — the user should never need to know how to prompt. Confirm each answer before asking the next:
 
-If brand material is missing, ask for it before reading Figma — there is no point fetching variables you have nothing to map onto.
+- **Brand material** — any of: a PDF the user attaches, pasted brand-guideline text, or a short list of values (hex codes, font families, spacing). Read what they give; do not fetch from the web unless they explicitly ask and provide a URL. Ask for this first — there is no point fetching variables you have nothing to map onto.
+- **Figma file** — the UI kit. Accept a full Figma URL and extract the file key (the segment after `/design/` or `/file/`, e.g. `https://figma.com/design/ABC123/Name` → `ABC123`).
+- Optionally, a specific collection name if they only want to touch one collection.
 
 ## Reading variables from Figma
 
@@ -54,11 +54,22 @@ Hard rules, because fidelity is the whole point:
 
 Build a change set where each entry records: variable id, exact name, collection, category (Color / Typography / Spacing / etc.), current value (hex for colors), and the new brand value.
 
-## Show the diff and get approval
+## Approval gate — required before writing anything
 
-Present the change set as a clear before → after table grouped by category, with color swatches described inline (current hex → new hex). State the count plainly: "3 of 47 variables will change." Then ask the user to approve, or to deselect any rows they want to skip.
+Present the change set for review and wait for the user. This is the verification step teammates rely on, so never skip it. Show every proposed change as a **numbered list with checkbox markers**, all selected by default, grouped by category, with current → new values (hex for colors):
 
-**Do not write to Figma without explicit approval in this conversation.** Writing variable values is a side-effecting action on their real file.
+```
+Colors
+1. [x] color/brand/primary      #003087 → #171717
+2. [x] color/brand/accent       #2563EB → #FF5A1F
+
+Typography
+3. [x] font/family/heading      Inter → Söhne
+```
+
+State the count plainly: "3 of 47 variables will change." Then ask: **"Reply `all` to apply every change, or tell me which line numbers to exclude (e.g. `skip 2`)."**
+
+**Do not write to Figma until the user replies.** Writing variable values is a side-effecting action on their real file. Apply only the entries still marked `[x]` after their reply.
 
 ## Writing changes back to Figma
 
