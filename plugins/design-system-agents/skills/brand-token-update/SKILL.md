@@ -26,13 +26,24 @@ This skill depends entirely on the Figma MCP server. Before doing anything else,
 
 When launched via the `/brand-upload` command, gather these **one question at a time**, conversationally — the user should never need to know how to prompt. Confirm each answer before asking the next:
 
-- **Brand material** — any of: a PDF the user attaches, pasted brand-guideline text, or a short list of values (hex codes, font families, spacing). Read what they give; do not fetch from the web unless they explicitly ask and provide a URL. Ask for this first.
+- **Brand material** — any one or combination of:
+  - a **PDF** the user attaches,
+  - **pasted brand-guideline text**,
+  - a short **list of values** (hex codes, font families, spacing),
+  - a **link to the brand's official website**,
+  - a **link to a Storybook** or other component/design-token source,
+  - a **link to any other source of brand identity** (a design-tokens page, a brand portal, a Figma published-styles page, etc.).
+
+  Accept several at once — e.g. a PDF *and* a website link. Read what you can from each. For links, fetch and read the page content to extract explicit brand values (colors, fonts, spacing). Two honest constraints to handle gracefully:
+  - Some sources need web access in the runtime, and some (Storybook behind company auth, or pages that render values only via JavaScript) may not be fully readable. If a link cannot be reached or yields no usable values, **say so plainly and ask the user to paste the values or a PDF** — never invent values from a URL you could not actually read.
+  - When you do extract values from a link, briefly note which source each value came from so the user can verify.
+  Ask for the brand material first.
 - **Figma file** — where the new collection will be created. Accept a full Figma URL and extract the file key (the segment after `/design/` or `/file/`, e.g. `https://figma.com/design/ABC123/Name` → `ABC123`).
 - **Collection name** — confirm the default "Brand Foundations", or let them set a different name.
 
 ## Extracting brand elements from the material
 
-Read the brand material and pull out every **explicit** foundation value. Group them by category as you go. Cover whatever the brand material actually defines — typically:
+Read the brand material — including any linked sources you were able to fetch — and pull out every **explicit** foundation value. Group them by category as you go. When a value comes from a link, keep track of its source. Cover whatever the brand material actually defines — typically:
 
 - **Colors** — each named brand color and its hex (e.g. Primary `#003087`). Convert to figure out the RGBA later.
 - **Typography** — font families, and any explicitly given weights or sizes (e.g. heading family "Söhne").

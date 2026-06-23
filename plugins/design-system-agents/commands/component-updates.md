@@ -14,7 +14,7 @@ Follow the skill at `skills/component-updates/SKILL.md`, and run it in this exac
 2. **Ask for the initial (library) component** — OPTIONAL. Tell them they can paste a link to the original component, or skip it if they just want a spec of the component. Accept a Figma node link (use "Copy link to selection" so it includes the node id).
 3. **Ask for the modified / target component** — REQUIRED. The component to document. Accept a Figma node link.
 4. **Ask where the doc should go** — a page or frame link. Default to a frame titled "Component Updates".
-5. **Read both components** (handle same-file or cross-file), capture anatomy, styling, and bound variables with any code syntax.
+5. **Read both components** (handle same-file or cross-file), capture anatomy, styling, bound variables with any code syntax, and **detect variant properties / states** (e.g. State, Size, Type) for the example matrix.
 6. **Classify** — anatomy unchanged & only styling differs = Modified; anatomy changed = Different/custom component (say so plainly, with the anatomical reasons); no original given = Spec only.
 7. **Approval gate** — present the findings as a numbered list with `[x]` markers (all selected by default), grouped by category. Ask them to reply `all` or to name lines to exclude. **Do not write anything until they reply.**
 8. **Create the documentation section** with only the approved items, including code syntax for changed variable-bound values, then give them a link to the doc frame.

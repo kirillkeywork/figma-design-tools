@@ -46,6 +46,7 @@ For each component capture:
 - **Anatomy** — the layer tree: names, types, nesting, and count. This is what you compare to classify modified vs. rebuilt.
 - **Styling per layer** — fills/colors, typography (family, size, weight, line height), spacing (padding, gap), sizing (width, height, constraints), corner radii.
 - **Bound variables** — where a property is bound to a variable rather than a raw value, capture the variable and resolve it. If that variable defines **code syntax** (Web / iOS / Android), capture each syntax that exists — only the ones actually defined, never invented.
+- **Variants / states** — if the component is a component set (has variant properties), capture each variant property and its values: e.g. a `State` property (Default / Hover / Pressed / Disabled), a `Size` property (Sm / Md / Lg), a `Type` property, etc. Record which variant node corresponds to each combination. This drives the example matrix. A plain single component with no variants has just one "Default" cell.
 
 Colors arrive as RGBA `{ r, g, b, a }` in the 0–1 range; convert to hex for display.
 
@@ -85,23 +86,33 @@ Present what you found and wait for the user. Show it as a **numbered list with 
   ```
 - **Spec only**: just the spec lines.
 
-Then ask: **"Reply `all` to document everything, or tell me which line numbers to exclude (e.g. `skip 2`)."** Do not write anything to Figma until they reply.
+In addition to the change/spec lines, when the component has variants, list the **detected states/variations** as their own checkbox group so the user can deselect any they don't want in the example matrix:
+
+```
+Detected variants (will appear in the example matrix)
+State: [x] Default  [x] Hover  [x] Pressed  [x] Disabled
+Size:  [x] Sm  [x] Md  [x] Lg
+```
+
+Then ask: **"Reply `all` to document everything, or tell me which line numbers / variants to exclude (e.g. `skip 2`, or `skip Disabled`)."** Do not write anything to Figma until they reply.
 
 ## Creating the documentation in Figma
 
 After approval, create a native auto-layout documentation section on the destination (default a frame titled "Component Updates"). Include, in order:
 
 - A **header** with the component name and the mode verdict — for rebuilt components, lead with a clear callout: "This is a different custom component, not a modified version of <original>." with the anatomical reasons.
-- A **visual examples row** near the top, showing the actual components side by side so the developer sees what is being compared:
-  - Place a **copy/instance of each component node** in the doc — original on the left, modified on the right — each clearly labeled ("Original" / "Modified").
-  - Prefer placing an **instance** of the source component where possible; if an instance cannot be created (e.g. the original lives in a different file and isn't reachable as a library instance), place a flat copy of the node instead. If even that fails, fall back to a rendered image/thumbnail of the node, and note in the doc that it is a static preview.
-  - In **spec-only** mode (no original given) show just the single component, labeled.
-  - In **rebuilt** mode still show both side by side, since seeing the two makes the "different component" verdict obvious.
+- An **example matrix** for each component, near the top, so the developer sees the real states and variations side by side:
+  - Build **one matrix per component** — original and modified shown as separate, clearly labeled matrices ("Original" / "Modified") placed side by side. In spec-only mode show just the one (the provided component). In rebuilt mode show both, since seeing the two makes the "different component" verdict obvious.
+  - Each matrix is a **grid keyed on the component's variant properties**: put one variant property across the **columns** (e.g. State: Default / Hover / Pressed / Disabled) and another down the **rows** (e.g. Size: Sm / Md / Lg), so each cell is a unique combination. If the component has only one variant property, use a single row or column. If it has more than two, pick the two most meaningful axes (state-like property as columns) and note the fixed values used for the rest.
+  - **Place an actual node instance/copy in each cell** — prefer an instance of that specific variant; fall back to a flat copy if an instance can't be created (e.g. cross-file), and to a rendered thumbnail only as a last resort (noting it's a static preview).
+  - **Label both axes** — a header row with the column variant values and a header column with the row variant values — and label each matrix with the component name and "Original"/"Modified".
+  - Include only the variants the user kept in the approval step.
+  - A plain component with no variants shows a single labeled cell ("Default").
 - The approved changes (or spec) grouped by category, each row showing original → new where applicable.
 - For any changed value bound to a variable with code syntax, show the **variable name and its code syntax** (only the platforms that exist) so developers get the real token reference.
 - Keep it scannable: a developer should grasp what to implement at a glance.
 
-When the tool is `use_figma` with a `fileKey`, call it directly with a precise description of the section, including the side-by-side example instances. After creating, give the user a direct link to the documentation frame.
+When the tool is `use_figma` with a `fileKey`, call it directly with a precise description of the section, including the per-component example matrices (axes, labels, and an instance in each cell). After creating, give the user a direct link to the documentation frame.
 
 ## Failure modes to handle gracefully
 

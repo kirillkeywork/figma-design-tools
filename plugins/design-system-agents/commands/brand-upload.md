@@ -11,7 +11,7 @@ This tool **creates a new variable collection** (named "Brand Foundations" by de
 Follow the skill at `skills/brand-token-update/SKILL.md`, and run it in this exact order. Ask **one question per turn** and wait for the answer before moving on:
 
 1. **Preflight** — confirm the Figma MCP connection is live (probe the server). If it isn't, stop and guide the person to connect it (`/mcp` → authenticate the `figma` server). Do not continue until the probe succeeds.
-2. **Ask for the brand material** — a brand PDF they can attach, pasted brand-guideline text, or a short list of values (hex codes, fonts, spacing). Wait until you have something concrete.
+2. **Ask for the brand material** — any combination of: a brand PDF they attach, pasted brand-guideline text, a short list of values (hex codes, fonts, spacing), a link to the brand's official website, a link to a Storybook, or a link to any other brand-identity source. Accept several at once. For links, fetch and read them to extract explicit values; if a link can't be reached or has no usable values, say so and ask them to paste values or a PDF rather than inventing anything. Wait until you have something concrete.
 3. **Ask for the Figma file** — where the new collection will be created. Extract the file key from the URL.
 4. **Confirm the collection name** — default "Brand Foundations", or let them set a different one.
 5. **Extract the brand elements** from the material (colors, typography, spacing, other) — only explicit values, never invented ones.
